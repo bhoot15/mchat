@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "340514351392",
+    "firebase_url": "https://mchat-55ef0.firebaseio.com",
+    "project_id": "mchat-55ef0",
+    "storage_bucket": "mchat-55ef0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:340514351392:android:bce33f84b385e35e",
+        "android_client_info": {
+          "package_name": "com.marceme.marcefirebasechat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "340514351392-mfkpjmd5libjkv5u0kphgmoo1e5dr1io.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMfPZQj1-StdmCt71vVxlmjEdgWSqN9Kg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
