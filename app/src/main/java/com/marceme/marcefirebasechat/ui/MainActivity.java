@@ -25,6 +25,7 @@ import com.marceme.marcefirebasechat.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,13 +40,15 @@ import butterknife.ButterKnife;
 public class MainActivity extends Activity {
 
 
-    private static String TAG =  MainActivity.class.getSimpleName();
+    private static String TAG = MainActivity.class.getSimpleName();
 
-    @BindView(R.id.progress_bar_users) ProgressBar mProgressBarForUsers;
-    @BindView(R.id.recycler_view_users) RecyclerView mUsersRecyclerView;
+    @BindView(R.id.progress_bar_users)
+    ProgressBar mProgressBarForUsers;
+    @BindView(R.id.recycler_view_users)
+    RecyclerView mUsersRecyclerView;
 
     private String mCurrentUserUid;
-    private List<String>  mUsersKeyList;
+    private List<String> mUsersKeyList;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -77,7 +80,9 @@ public class MainActivity extends Activity {
     private void setUsersDatabase() {
         mUserRefDatabase = FirebaseDatabase.getInstance().getReference().child("users");
     }
+
     private void setUserRecyclerView() {
+
         mUsersChatAdapter = new UsersChatAdapter(this, new ArrayList<User>());
         mUsersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mUsersRecyclerView.setHasFixedSize(true);
@@ -97,6 +102,7 @@ public class MainActivity extends Activity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
 
                 if (user != null) {
+
                     setUserData(user);
                     queryAllUsers();
                 } else {
@@ -108,6 +114,7 @@ public class MainActivity extends Activity {
     }
 
     private void setUserData(FirebaseUser user) {
+
         mCurrentUserUid = user.getUid();
     }
 
@@ -158,7 +165,7 @@ public class MainActivity extends Activity {
     }
 
     private void setUserOffline() {
-        if(mAuth.getCurrentUser()!=null ) {
+        if (mAuth.getCurrentUser() != null) {
             String userId = mAuth.getCurrentUser().getUid();
             mUserRefDatabase.child(userId).child("connection").setValue(UsersChatAdapter.OFFLINE);
         }
@@ -173,7 +180,7 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()==R.id.action_logout){
+        if (item.getItemId() == R.id.action_logout) {
             logout();
             return true;
         }
@@ -181,12 +188,12 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void showProgressBarForUsers(){
+    private void showProgressBarForUsers() {
         mProgressBarForUsers.setVisibility(View.VISIBLE);
     }
 
-    private void hideProgressBarForUsers(){
-        if(mProgressBarForUsers.getVisibility()==View.VISIBLE) {
+    private void hideProgressBarForUsers() {
+        if (mProgressBarForUsers.getVisibility() == View.VISIBLE) {
             mProgressBarForUsers.setVisibility(View.GONE);
         }
     }
@@ -196,18 +203,27 @@ public class MainActivity extends Activity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-                if(dataSnapshot.exists()){
+                if (dataSnapshot.exists()) {
 
                     String userUid = dataSnapshot.getKey();
 
-                    if(dataSnapshot.getKey().equals(mCurrentUserUid)){
+                    /*User user = dataSnapshot.getValue(User.class);
+                    System.out.println("UserType-->: " + user.getUserType());*/
+
+                    if (dataSnapshot.getKey().equals(mCurrentUserUid)) {
                         User currentUser = dataSnapshot.getValue(User.class);
                         mUsersChatAdapter.setCurrentUserInfo(userUid, currentUser.getEmail(), currentUser.getCreatedAt(), currentUser.getUserType());
-                    }else {
-                        User recipient = dataSnapshot.getValue(User.class);
-                        recipient.setRecipientId(userUid);
-                        mUsersKeyList.add(userUid);
-                        mUsersChatAdapter.refill(recipient);
+                    } else {
+                        User user = dataSnapshot.getValue(User.class);
+                        System.out.println("UserType-->: " + user.getUserType());
+
+                        if (Objects.equals(user.getUserType(), "rj")) {
+
+                            User recipient = dataSnapshot.getValue(User.class);
+                            recipient.setRecipientId(userUid);
+                            mUsersKeyList.add(userUid);
+                            mUsersChatAdapter.refill(recipient);
+                        }
                     }
                 }
 
@@ -215,14 +231,14 @@ public class MainActivity extends Activity {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                if(dataSnapshot.exists()) {
+                if (dataSnapshot.exists()) {
                     String userUid = dataSnapshot.getKey();
-                    if(!userUid.equals(mCurrentUserUid)) {
+                    if (!userUid.equals(mCurrentUserUid)) {
 
                         User user = dataSnapshot.getValue(User.class);
 
                         int index = mUsersKeyList.indexOf(userUid);
-                        if(index > -1) {
+                        if (index > -1) {
                             mUsersChatAdapter.changeUser(index, user);
                         }
                     }

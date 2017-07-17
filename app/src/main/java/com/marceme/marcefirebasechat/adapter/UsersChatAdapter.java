@@ -35,6 +35,7 @@ public class UsersChatAdapter extends RecyclerView.Adapter<UsersChatAdapter.View
     private String mCurrentUserId;
 
     public UsersChatAdapter(Context context, List<User> fireChatUsers) {
+
         mUsers = fireChatUsers;
         mContext = context;
     }
