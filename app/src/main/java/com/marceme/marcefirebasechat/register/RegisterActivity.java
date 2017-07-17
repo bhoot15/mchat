@@ -34,6 +34,7 @@ public class RegisterActivity extends Activity{
     @BindView(R.id.edit_text_display_name) EditText mUserFirstNameRegister;
     @BindView(R.id.edit_text_email_register) EditText mUserEmailRegister;
     @BindView(R.id.edit_text_password_register) EditText mUserPassWordRegister;
+    String mUserType = "user";
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
@@ -112,6 +113,10 @@ public class RegisterActivity extends Activity{
         return mUserFirstNameRegister.getText().toString().trim();
     }
 
+    public String getUserType() {
+        return mUserType;
+    }
+
     private String getUserEmail() {
         return mUserEmailRegister.getText().toString().trim();
     }
@@ -166,8 +171,8 @@ public class RegisterActivity extends Activity{
                 getUserEmail(),
                 UsersChatAdapter.ONLINE,
                 ChatHelper.generateRandomAvatarForUser(),
-                new Date().getTime()
+                new Date().getTime(),
+                getUserType()
                 );
     }
-
 }

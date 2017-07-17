@@ -202,7 +202,7 @@ public class MainActivity extends Activity {
 
                     if(dataSnapshot.getKey().equals(mCurrentUserUid)){
                         User currentUser = dataSnapshot.getValue(User.class);
-                        mUsersChatAdapter.setCurrentUserInfo(userUid, currentUser.getEmail(), currentUser.getCreatedAt());
+                        mUsersChatAdapter.setCurrentUserInfo(userUid, currentUser.getEmail(), currentUser.getCreatedAt(), currentUser.getUserType());
                     }else {
                         User recipient = dataSnapshot.getValue(User.class);
                         recipient.setRecipientId(userUid);

@@ -30,6 +30,7 @@ public class UsersChatAdapter extends RecyclerView.Adapter<UsersChatAdapter.View
     private List<User> mUsers;
     private Context mContext;
     private String mCurrentUserEmail;
+    private String mCurrentUserType;
     private Long mCurrentUserCreatedAt;
     private String mCurrentUserId;
 
@@ -85,10 +86,11 @@ public class UsersChatAdapter extends RecyclerView.Adapter<UsersChatAdapter.View
         notifyDataSetChanged();
     }
 
-    public void setCurrentUserInfo(String userUid, String email, long createdAt) {
+    public void setCurrentUserInfo(String userUid, String email, long createdAt, String userType) {
         mCurrentUserId = userUid;
         mCurrentUserEmail = email;
         mCurrentUserCreatedAt = createdAt;
+        mCurrentUserType = userType;
     }
 
     public void clear() {

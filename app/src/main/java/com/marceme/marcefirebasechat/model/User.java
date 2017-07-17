@@ -13,6 +13,7 @@ public class User {
     private String displayName;
     private String email;
     private String connection;
+    private String userType = "user";
     private int avatarId;
     private long createdAt;
 
@@ -21,12 +22,13 @@ public class User {
     public User() {
     }
 
-    public User(String displayName, String email, String connection, int avatarId, long createdAt) {
+    public User(String displayName, String email, String connection, int avatarId, long createdAt, String userType) {
         this.displayName = displayName;
         this.email = email;
         this.connection = connection;
         this.avatarId = avatarId;
         this.createdAt = createdAt;
+        this.userType = userType;
     }
 
 
@@ -74,6 +76,10 @@ public class User {
     @Exclude
     public String getRecipientId() {
         return mRecipientId;
+    }
+
+    public String getUserType() {
+        return userType;
     }
 
     public void setRecipientId(String recipientId) {
