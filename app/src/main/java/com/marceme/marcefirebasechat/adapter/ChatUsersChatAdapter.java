@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Created by Marcel on 11/11/2015.
  */
-public class UsersChatAdapter extends RecyclerView.Adapter<UsersChatAdapter.ViewHolderUsers> {
+public class ChatUsersChatAdapter extends RecyclerView.Adapter<ChatUsersChatAdapter.ViewHolderUsers> {
 
     public static final String ONLINE = "online";
     public static final String OFFLINE = "offline";
@@ -34,7 +34,7 @@ public class UsersChatAdapter extends RecyclerView.Adapter<UsersChatAdapter.View
     private Long mCurrentUserCreatedAt;
     private String mCurrentUserId;
 
-    public UsersChatAdapter(Context context, List<User> fireChatUsers) {
+    public ChatUsersChatAdapter(Context context, List<User> fireChatUsers) {
 
         mUsers = fireChatUsers;
         mContext = context;
@@ -42,7 +42,7 @@ public class UsersChatAdapter extends RecyclerView.Adapter<UsersChatAdapter.View
 
     @Override
     public ViewHolderUsers onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolderUsers(mContext,LayoutInflater.from(parent.getContext()).inflate(R.layout.user_profile, parent, false));
+        return new ViewHolderUsers(mContext,LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_user_profile, parent, false));
     }
 
     @Override

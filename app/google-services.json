@@ -1,27 +1,39 @@
 {
   "project_info": {
-    "project_number": "340514351392",
-    "firebase_url": "https://mchat-55ef0.firebaseio.com",
-    "project_id": "mchat-55ef0",
-    "storage_bucket": "mchat-55ef0.appspot.com"
+    "project_number": "10495031866",
+    "firebase_url": "https://radio-foorti-v2.firebaseio.com",
+    "project_id": "radio-foorti-v2",
+    "storage_bucket": "radio-foorti-v2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:340514351392:android:bce33f84b385e35e",
+        "mobilesdk_app_id": "1:10495031866:android:bdd5add630c5ff2a",
         "android_client_info": {
           "package_name": "com.marceme.marcefirebasechat"
         }
       },
       "oauth_client": [
         {
-          "client_id": "340514351392-mfkpjmd5libjkv5u0kphgmoo1e5dr1io.apps.googleusercontent.com",
+          "client_id": "10495031866-18bs3gketj529gi6h40aotp97gcqoluo.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "10495031866-gbb9i5cn5t7mnupd27682c1396dabg6k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.marceme.marcefirebasechat",
+            "certificate_hash": "fc7cf7e8b7cd2b6a6592a25c987bb453171386c1"
+          }
+        },
+        {
+          "client_id": "10495031866-2qbvvtbsdeglf0kq54tlb3k4es6rm81p.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAMfPZQj1-StdmCt71vVxlmjEdgWSqN9Kg"
+          "current_key": "AIzaSyAsGlc-zaIVK2Iky94mS7cRFiaNHe_n5GE"
         }
       ],
       "services": {
@@ -29,8 +41,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "10495031866-18bs3gketj529gi6h40aotp97gcqoluo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

@@ -14,13 +14,13 @@ import java.util.List;
 /**
  * Created by Marcel on 11/7/2015.
  */
-public class MessageChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class ChatMessageChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private List<ChatMessage> mChatList;
     public static final int SENDER = 0;
     public static final int RECIPIENT = 1;
 
-    public MessageChatAdapter(List<ChatMessage> listOfFireChats) {
+    public ChatMessageChatAdapter(List<ChatMessage> listOfFireChats) {
         mChatList = listOfFireChats;
     }
 
@@ -40,15 +40,15 @@ public class MessageChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         switch (viewType) {
             case SENDER:
-                View viewSender = inflater.inflate(R.layout.layout_sender_message, viewGroup, false);
+                View viewSender = inflater.inflate(R.layout.chat_layout_sender_message, viewGroup, false);
                 viewHolder= new ViewHolderSender(viewSender);
                 break;
             case RECIPIENT:
-                View viewRecipient = inflater.inflate(R.layout.layout_recipient_message, viewGroup, false);
+                View viewRecipient = inflater.inflate(R.layout.chat_layout_recipient_message, viewGroup, false);
                 viewHolder=new ViewHolderRecipient(viewRecipient);
                 break;
             default:
-                View viewSenderDefault = inflater.inflate(R.layout.layout_sender_message, viewGroup, false);
+                View viewSenderDefault = inflater.inflate(R.layout.chat_layout_sender_message, viewGroup, false);
                 viewHolder= new ViewHolderSender(viewSenderDefault);
                 break;
         }

@@ -19,8 +19,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.marceme.marcefirebasechat.R;
-import com.marceme.marcefirebasechat.adapter.UsersChatAdapter;
-import com.marceme.marcefirebasechat.login.LogInActivity;
+import com.marceme.marcefirebasechat.adapter.ChatUsersChatAdapter;
+import com.marceme.marcefirebasechat.login.ChatLogInActivity;
 import com.marceme.marcefirebasechat.model.User;
 
 import java.util.ArrayList;
@@ -37,10 +37,10 @@ import butterknife.ButterKnife;
 *       I don't use FirebaseUI, but recommend you to use it.
 * */
 
-public class MainActivity extends Activity {
+public class ChatMainActivity extends Activity {
 
 
-    private static String TAG = MainActivity.class.getSimpleName();
+    private static String TAG = ChatMainActivity.class.getSimpleName();
 
     @BindView(R.id.progress_bar_users)
     ProgressBar mProgressBarForUsers;
@@ -54,12 +54,12 @@ public class MainActivity extends Activity {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference mUserRefDatabase;
     private ChildEventListener mChildEventListener;
-    private UsersChatAdapter mUsersChatAdapter;
+    private ChatUsersChatAdapter mChatUsersChatAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.chat_activity_main);
 
         bindButterKnife();
         setAuthInstance();
@@ -83,10 +83,10 @@ public class MainActivity extends Activity {
 
     private void setUserRecyclerView() {
 
-        mUsersChatAdapter = new UsersChatAdapter(this, new ArrayList<User>());
+        mChatUsersChatAdapter = new ChatUsersChatAdapter(this, new ArrayList<User>());
         mUsersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mUsersRecyclerView.setHasFixedSize(true);
-        mUsersRecyclerView.setAdapter(mUsersChatAdapter);
+        mUsersRecyclerView.setAdapter(mChatUsersChatAdapter);
     }
 
     private void setUsersKeyList() {
@@ -124,7 +124,7 @@ public class MainActivity extends Activity {
     }
 
     private void goToLogin() {
-        Intent intent = new Intent(this, LogInActivity.class);
+        Intent intent = new Intent(this, ChatLogInActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // LoginActivity is a New Task
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // The old task when coming back to this activity should be cleared so we cannot come back to it.
         startActivity(intent);
@@ -154,7 +154,7 @@ public class MainActivity extends Activity {
     }
 
     private void clearCurrentUsers() {
-        mUsersChatAdapter.clear();
+        mChatUsersChatAdapter.clear();
         mUsersKeyList.clear();
     }
 
@@ -167,14 +167,14 @@ public class MainActivity extends Activity {
     private void setUserOffline() {
         if (mAuth.getCurrentUser() != null) {
             String userId = mAuth.getCurrentUser().getUid();
-            mUserRefDatabase.child(userId).child("connection").setValue(UsersChatAdapter.OFFLINE);
+            mUserRefDatabase.child(userId).child("connection").setValue(ChatUsersChatAdapter.OFFLINE);
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.chat_menu_main, menu);
         return true;
     }
 
@@ -212,17 +212,19 @@ public class MainActivity extends Activity {
 
                     if (dataSnapshot.getKey().equals(mCurrentUserUid)) {
                         User currentUser = dataSnapshot.getValue(User.class);
-                        mUsersChatAdapter.setCurrentUserInfo(userUid, currentUser.getEmail(), currentUser.getCreatedAt(), currentUser.getUserType());
+                        mChatUsersChatAdapter.setCurrentUserInfo(userUid, currentUser.getEmail(), currentUser.getCreatedAt(), currentUser.getUserType());
                     } else {
                         User user = dataSnapshot.getValue(User.class);
                         System.out.println("UserType-->: " + user.getUserType());
+                        //System.out.println("email-->: " + user.getEmail());
 
-                        if (Objects.equals(user.getUserType(), "rj")) {
+                        if (Objects.equals(user.getUserType(), "user")) {
 
                             User recipient = dataSnapshot.getValue(User.class);
                             recipient.setRecipientId(userUid);
                             mUsersKeyList.add(userUid);
-                            mUsersChatAdapter.refill(recipient);
+                            mChatUsersChatAdapter.refill(recipient);
+                            hideProgressBarForUsers();
                         }
                     }
                 }
@@ -239,7 +241,7 @@ public class MainActivity extends Activity {
 
                         int index = mUsersKeyList.indexOf(userUid);
                         if (index > -1) {
-                            mUsersChatAdapter.changeUser(index, user);
+                            mChatUsersChatAdapter.changeUser(index, user);
                         }
                     }
 

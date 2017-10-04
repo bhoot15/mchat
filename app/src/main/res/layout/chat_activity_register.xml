@@ -3,21 +3,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:background="@color/primary"
-                tools:context="com.marceme.marcefirebasechat.register.RegisterActivity">
+                android:background="@drawable/background"
+                tools:context="com.marceme.marcefirebasechat.register.ChatRegisterActivity">
 
     <!-- For the purpose of the app, many attributes are not refactored-->
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="M Chat"
-        android:id="@+id/titleChat"
-        android:layout_gravity="center"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:textColor="@color/text_color"
-        android:layout_marginTop="@dimen/log_in_margin"/>
 
     <EditText
         android:id="@+id/edit_text_display_name"
@@ -28,7 +17,7 @@
         android:layout_marginRight="@dimen/log_in_margin"
         android:textColor="@color/text_color"
         android:textColorHint="@color/text_color"
-        android:hint="display name"/>
+        android:hint="Display name"/>
 
     <EditText
         android:id="@+id/edit_text_email_register"
@@ -58,9 +47,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Register"
-        android:background="@color/text_color"
+        android:background="@drawable/theme_button"
         android:layout_marginLeft="@dimen/log_in_margin"
-        android:textColor="@color/primary"
+        android:textColor="#fff"
         android:layout_marginTop="8dp"
         android:layout_marginRight="@dimen/log_in_margin"/>
 
@@ -69,8 +58,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Cancel"
-        android:textColor="@color/primary"
-        android:background="@color/text_color"
+        android:textColor="#ffffff"
+        android:background="@drawable/theme_button"
         android:layout_marginTop="8dp"
         android:layout_marginLeft="@dimen/log_in_margin"
         android:layout_marginRight="@dimen/log_in_margin"/>

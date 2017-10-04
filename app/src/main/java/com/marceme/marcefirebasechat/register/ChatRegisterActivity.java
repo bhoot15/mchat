@@ -17,9 +17,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.marceme.marcefirebasechat.FireChatHelper.ChatHelper;
 import com.marceme.marcefirebasechat.R;
-import com.marceme.marcefirebasechat.adapter.UsersChatAdapter;
+import com.marceme.marcefirebasechat.adapter.ChatUsersChatAdapter;
 import com.marceme.marcefirebasechat.model.User;
-import com.marceme.marcefirebasechat.ui.MainActivity;
+import com.marceme.marcefirebasechat.ui.ChatMainActivity;
 
 import java.util.Date;
 
@@ -27,9 +27,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class RegisterActivity extends Activity{
+public class ChatRegisterActivity extends Activity{
 
-    private static final String TAG = RegisterActivity.class.getSimpleName();
+    private static final String TAG = ChatRegisterActivity.class.getSimpleName();
 
     @BindView(R.id.edit_text_display_name) EditText mUserFirstNameRegister;
     @BindView(R.id.edit_text_email_register) EditText mUserEmailRegister;
@@ -43,7 +43,7 @@ public class RegisterActivity extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.chat_activity_register);
 
         hideActionBar();
         bindButterKnife();
@@ -105,7 +105,7 @@ public class RegisterActivity extends Activity{
 
     private void showAlertDialog(String message, boolean isCancelable){
 
-        dialog = ChatHelper.buildAlertDialog(getString(R.string.login_error_title),message,isCancelable,RegisterActivity.this);
+        dialog = ChatHelper.buildAlertDialog(getString(R.string.login_error_title),message,isCancelable,ChatRegisterActivity.this);
         dialog.show();
     }
 
@@ -154,7 +154,7 @@ public class RegisterActivity extends Activity{
     }
 
     private void goToMainActivity() {
-        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+        Intent intent = new Intent(ChatRegisterActivity.this, ChatMainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
@@ -169,7 +169,7 @@ public class RegisterActivity extends Activity{
         return new User(
                 getUserDisplayName(),
                 getUserEmail(),
-                UsersChatAdapter.ONLINE,
+                ChatUsersChatAdapter.ONLINE,
                 ChatHelper.generateRandomAvatarForUser(),
                 new Date().getTime(),
                 getUserType()

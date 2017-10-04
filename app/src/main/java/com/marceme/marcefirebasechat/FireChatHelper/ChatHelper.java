@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 
 import com.marceme.marcefirebasechat.R;
-import com.marceme.marcefirebasechat.login.LogInActivity;
 
 import java.util.Random;
 

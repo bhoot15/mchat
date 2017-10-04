@@ -1,15 +1,23 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
               android:orientation="vertical"
-              android:background="@color/primary"
-                tools:context="com.marceme.marcefirebasechat.login.LogInActivity">
+              android:background="@drawable/background"
+                tools:context="com.marceme.marcefirebasechat.login.ChatLogInActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:gravity="center">
 
 
     <!-- For the purpose of the app, many attributes are not refactored-->
 
-    <TextView
+    <!--<TextView
         android:id="@+id/titleChat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,7 +26,20 @@
         android:textColor="@color/text_color"
         android:layout_gravity="center"
         android:textSize="30sp"
-        android:layout_marginTop="@dimen/log_in_margin"/>
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/log_in_margin"/>-->
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="30dp">
+
+        </LinearLayout>
 
     <EditText
         android:id="@+id/edit_text_email_login"
@@ -43,14 +64,20 @@
         android:layout_marginLeft="@dimen/log_in_margin"
         android:layout_marginRight="@dimen/log_in_margin"
         android:hint="password"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="50dp">
+
+        </LinearLayout>
 
     <Button
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="LogIn"
-        android:background="@color/text_color"
-        android:textColor="@color/primary"
+        android:background="@drawable/theme_button"
+        android:textColor="@color/text_color"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="@dimen/log_in_margin"
         android:layout_marginRight="@dimen/log_in_margin"/>
@@ -60,10 +87,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Register"
-        android:textColor="@color/primary"
-        android:background="@color/text_color"
+        android:textColor="@color/text_color"
+        android:background="@drawable/theme_button"
         android:layout_marginTop="8dp"
         android:layout_marginLeft="@dimen/log_in_margin"
-        android:layout_marginRight="@dimen/log_in_margin"/>
+        android:layout_marginRight="@dimen/log_in_margin"
+        android:visibility="gone"/>
+    </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

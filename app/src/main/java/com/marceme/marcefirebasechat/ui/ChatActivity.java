@@ -14,7 +14,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.marceme.marcefirebasechat.FireChatHelper.ExtraIntent;
 import com.marceme.marcefirebasechat.R;
-import com.marceme.marcefirebasechat.adapter.MessageChatAdapter;
+import com.marceme.marcefirebasechat.adapter.ChatMessageChatAdapter;
 import com.marceme.marcefirebasechat.model.ChatMessage;
 
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class ChatActivity extends Activity {
 
     private String mRecipientId;
     private String mCurrentUserId;
-    private MessageChatAdapter messageChatAdapter;
+    private ChatMessageChatAdapter chatMessageChatAdapter;
     private DatabaseReference messageChatDatabase;
     private ChildEventListener messageChatListener;
 
@@ -41,7 +41,7 @@ public class ChatActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat);
+        setContentView(R.layout.chat_activity_chat);
 
         bindButterKnife();
         setDatabaseInstance();
@@ -65,8 +65,8 @@ public class ChatActivity extends Activity {
     private void setChatRecyclerView() {
         mChatRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mChatRecyclerView.setHasFixedSize(true);
-        messageChatAdapter = new MessageChatAdapter(new ArrayList<ChatMessage>());
-        mChatRecyclerView.setAdapter(messageChatAdapter);
+        chatMessageChatAdapter = new ChatMessageChatAdapter(new ArrayList<ChatMessage>());
+        mChatRecyclerView.setAdapter(chatMessageChatAdapter);
     }
 
     @Override
@@ -80,12 +80,12 @@ public class ChatActivity extends Activity {
                 if(dataSnapshot.exists()){
                     ChatMessage newMessage = dataSnapshot.getValue(ChatMessage.class);
                     if(newMessage.getSender().equals(mCurrentUserId)){
-                        newMessage.setRecipientOrSenderStatus(MessageChatAdapter.SENDER);
+                        newMessage.setRecipientOrSenderStatus(ChatMessageChatAdapter.SENDER);
                     }else{
-                        newMessage.setRecipientOrSenderStatus(MessageChatAdapter.RECIPIENT);
+                        newMessage.setRecipientOrSenderStatus(ChatMessageChatAdapter.RECIPIENT);
                     }
-                    messageChatAdapter.refillAdapter(newMessage);
-                    mChatRecyclerView.scrollToPosition(messageChatAdapter.getItemCount()-1);
+                    chatMessageChatAdapter.refillAdapter(newMessage);
+                    mChatRecyclerView.scrollToPosition(chatMessageChatAdapter.getItemCount()-1);
                 }
 
             }
@@ -121,7 +121,7 @@ public class ChatActivity extends Activity {
         if(messageChatListener != null) {
             messageChatDatabase.removeEventListener(messageChatListener);
         }
-        messageChatAdapter.cleanUp();
+        chatMessageChatAdapter.cleanUp();
 
     }
 

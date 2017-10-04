@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -16,17 +15,17 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.marceme.marcefirebasechat.FireChatHelper.ChatHelper;
 import com.marceme.marcefirebasechat.R;
-import com.marceme.marcefirebasechat.adapter.UsersChatAdapter;
-import com.marceme.marcefirebasechat.register.RegisterActivity;
-import com.marceme.marcefirebasechat.ui.MainActivity;
+import com.marceme.marcefirebasechat.adapter.ChatUsersChatAdapter;
+import com.marceme.marcefirebasechat.register.ChatRegisterActivity;
+import com.marceme.marcefirebasechat.ui.ChatMainActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LogInActivity extends Activity {
+public class ChatLogInActivity extends Activity {
 
-    private static final String TAG = LogInActivity.class.getSimpleName();
+    private static final String TAG = ChatLogInActivity.class.getSimpleName();
     @BindView(R.id.edit_text_email_login) EditText mUserEmail;
     @BindView(R.id.edit_text_password_log_in) EditText mUserPassWord;
 
@@ -36,7 +35,7 @@ public class LogInActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_log_in);
+        setContentView(R.layout.chat_activity_log_in);
 
         hideActionBar();
         bindButterKnife();
@@ -105,19 +104,19 @@ public class LogInActivity extends Activity {
                     child("users").
                     child(userId).
                     child("connection").
-                    setValue(UsersChatAdapter.ONLINE);
+                    setValue(ChatUsersChatAdapter.ONLINE);
         }
     }
 
     private void goToMainActivity() {
-        Intent intent = new Intent(LogInActivity.this, MainActivity.class);
+        Intent intent = new Intent(ChatLogInActivity.this, ChatMainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
     private void goToRegisterActivity() {
-        Intent intent = new Intent(LogInActivity.this, RegisterActivity.class);
+        Intent intent = new Intent(ChatLogInActivity.this, ChatRegisterActivity.class);
         startActivity(intent);
     }
 
@@ -130,7 +129,7 @@ public class LogInActivity extends Activity {
     }
 
     private void showAlertDialog(String message, boolean isCancelable){
-        dialog = ChatHelper.buildAlertDialog(getString(R.string.login_error_title), message,isCancelable,LogInActivity.this);
+        dialog = ChatHelper.buildAlertDialog(getString(R.string.login_error_title), message,isCancelable,ChatLogInActivity.this);
         dialog.show();
     }
 

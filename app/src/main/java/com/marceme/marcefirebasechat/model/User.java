@@ -13,7 +13,7 @@ public class User {
     private String displayName;
     private String email;
     private String connection;
-    private String userType = "user";
+    private String userType = "rj";
     private int avatarId;
     private long createdAt;
 

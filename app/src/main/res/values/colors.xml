@@ -1,13 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <color name="progresswhite">#F5F5F5</color>
+    <color name="progressBrown">#640F26</color>
+    <color name="colorPrimary">#7a0a3f</color>
+    <color name="colorPrimaryDark">#600832</color>
+    <color name="colorAccent">#ffffff</color>
+    <color name="colorPrimary_">#00695C</color>
+    <color name="colorPrimaryDark_">#004D40</color>
+    <color name="colorAccent_">#ffffff</color>
+    <color name="dull_white">#eae8e8</color>
+    <color name="dark_white">#62656c</color>
+    <color name="skye_color">#39CADB</color>
+    <color name="fb_button">#385f9a</color>
+    <color name="g_button">#d9372c</color>
+    <color name="theme_button">#E5004E</color>
     <color name="bg_user_message">#ffffff</color>
 
-    <color name="primary_dark">#E64A19</color>
-    <color name="primary">#FF5722</color>
+    <color name="primary_dark">#600832</color>
+    <color name="primary">#7a0a3f</color>
     <color name="accent">#448AFF</color>
     <color name="divider">#B6B6B6</color>
     <color name="text_color">#FFFFFF</color>
-    <color name="text_color_icon">#212121</color>
+    <color name="text_color_icon">#ffffff</color>
+
+    <color name="dot_dark">#de6389</color>
+
+    <!-- dots active colors -->
+    <color name="dot_light">#ffffff</color>
+
+    <array name="array_dot_active">
+        <item>@color/dot_light</item>
+        <item>@color/dot_light</item>
+        <item>@color/dot_light</item>
+
+    </array>
+
+    <array name="array_dot_inactive">
+        <item>@color/dot_dark</item>
+        <item>@color/dot_dark</item>
+        <item>@color/dot_dark</item>
+
+    </array>
 
 </resources>
