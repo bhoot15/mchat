@@ -20,7 +20,6 @@
         android:layout_height="wrap_content"
         tools:text="Marcelino"
         android:textStyle="bold"
-        android:textColor="@color/text_color_icon"
         android:layout_alignBottom="@+id/img_avatar"
         android:layout_toEndOf="@+id/img_avatar"
         android:layout_marginBottom="26dp"/>
@@ -43,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_gravity="bottom"
-        android:background="#eaeaea"
+        android:background="@color/dark_white"
         android:layout_below="@+id/img_avatar"/>
 
 </RelativeLayout>

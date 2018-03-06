@@ -2,8 +2,8 @@
 <resources>
     <color name="progresswhite">#F5F5F5</color>
     <color name="progressBrown">#640F26</color>
-    <color name="colorPrimary">#7a0a3f</color>
-    <color name="colorPrimaryDark">#600832</color>
+    <color name="colorPrimary">#e91e63</color>
+    <color name="colorPrimaryDark">#e91e63</color>
     <color name="colorAccent">#ffffff</color>
     <color name="colorPrimary_">#00695C</color>
     <color name="colorPrimaryDark_">#004D40</color>

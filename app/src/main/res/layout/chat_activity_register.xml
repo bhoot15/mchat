@@ -3,7 +3,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:background="@drawable/background"
                 tools:context="com.marceme.marcefirebasechat.register.ChatRegisterActivity">
 
     <!-- For the purpose of the app, many attributes are not refactored-->
@@ -15,8 +14,8 @@
         android:layout_marginTop="40dp"
         android:layout_marginLeft="@dimen/log_in_margin"
         android:layout_marginRight="@dimen/log_in_margin"
-        android:textColor="@color/text_color"
-        android:textColorHint="@color/text_color"
+        android:textColor="@color/colorPrimary"
+        android:textColorHint="@color/colorPrimary"
         android:hint="Display name"/>
 
     <EditText
@@ -26,8 +25,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/log_in_margin"
         android:layout_marginRight="@dimen/log_in_margin"
-        android:textColor="@color/text_color"
-        android:textColorHint="@color/text_color"
+        android:textColor="@color/colorPrimary"
+        android:textColorHint="@color/colorPrimary"
         android:hint="email"/>
 
     <EditText
@@ -38,8 +37,8 @@
         android:ems="10"
         android:layout_marginLeft="@dimen/log_in_margin"
         android:layout_marginRight="@dimen/log_in_margin"
-        android:textColor="@color/text_color"
-        android:textColorHint="@color/text_color"
+        android:textColor="@color/colorPrimary"
+        android:textColorHint="@color/colorPrimary"
         android:hint="password"/>
 
     <Button
