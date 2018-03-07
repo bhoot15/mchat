@@ -18,6 +18,7 @@ import com.marceme.marcefirebasechat.adapter.ChatMessageChatAdapter;
 import com.marceme.marcefirebasechat.model.ChatMessage;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,12 +28,15 @@ public class ChatActivity extends Activity {
 
     private static final String TAG = ChatActivity.class.getSimpleName();
 
-    @BindView(R.id.recycler_view_chat) RecyclerView mChatRecyclerView;
-    @BindView(R.id.edit_text_message) EditText mUserMessageChatText;
+    @BindView(R.id.recycler_view_chat)
+    RecyclerView mChatRecyclerView;
+    @BindView(R.id.edit_text_message)
+    EditText mUserMessageChatText;
 
 
     private String mRecipientId;
     private String mCurrentUserId;
+    private long createdAt;
     private ChatMessageChatAdapter chatMessageChatAdapter;
     private DatabaseReference messageChatDatabase;
     private ChildEventListener messageChatListener;
@@ -52,6 +56,7 @@ public class ChatActivity extends Activity {
     private void bindButterKnife() {
         ButterKnife.bind(this);
     }
+
     private void setDatabaseInstance() {
         String chatRef = getIntent().getStringExtra(ExtraIntent.EXTRA_CHAT_REF);
         messageChatDatabase = FirebaseDatabase.getInstance().getReference().child(chatRef);
@@ -77,15 +82,15 @@ public class ChatActivity extends Activity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String previousChildKey) {
 
-                if(dataSnapshot.exists()){
+                if (dataSnapshot.exists()) {
                     ChatMessage newMessage = dataSnapshot.getValue(ChatMessage.class);
-                    if(newMessage.getSender().equals(mCurrentUserId)){
+                    if (newMessage.getSender().equals(mCurrentUserId)) {
                         newMessage.setRecipientOrSenderStatus(ChatMessageChatAdapter.SENDER);
-                    }else{
+                    } else {
                         newMessage.setRecipientOrSenderStatus(ChatMessageChatAdapter.RECIPIENT);
                     }
                     chatMessageChatAdapter.refillAdapter(newMessage);
-                    mChatRecyclerView.scrollToPosition(chatMessageChatAdapter.getItemCount()-1);
+                    mChatRecyclerView.scrollToPosition(chatMessageChatAdapter.getItemCount() - 1);
                 }
 
             }
@@ -118,7 +123,7 @@ public class ChatActivity extends Activity {
     protected void onStop() {
         super.onStop();
 
-        if(messageChatListener != null) {
+        if (messageChatListener != null) {
             messageChatDatabase.removeEventListener(messageChatListener);
         }
         chatMessageChatAdapter.cleanUp();
@@ -126,13 +131,15 @@ public class ChatActivity extends Activity {
     }
 
     @OnClick(R.id.btn_send_message)
-    public void btnSendMsgListener(View sendButton){
+    public void btnSendMsgListener(View sendButton) {
 
         String senderMessage = mUserMessageChatText.getText().toString().trim();
 
-        if(!senderMessage.isEmpty()){
+        if (!senderMessage.isEmpty()) {
 
-            ChatMessage newMessage = new ChatMessage(senderMessage,mCurrentUserId,mRecipientId);
+            createdAt = new Date().getTime();
+
+            ChatMessage newMessage = new ChatMessage(senderMessage, mCurrentUserId, mRecipientId,createdAt);
             messageChatDatabase.push().setValue(newMessage);
 
             mUserMessageChatText.setText("");
