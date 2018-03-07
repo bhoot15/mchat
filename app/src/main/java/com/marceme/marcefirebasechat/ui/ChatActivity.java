@@ -73,7 +73,7 @@ public class ChatActivity extends Activity {
     protected void onStart() {
         super.onStart();
 
-        messageChatListener = messageChatDatabase.limitToFirst(20).addChildEventListener(new ChildEventListener() {
+        messageChatListener = messageChatDatabase.limitToLast(20).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String previousChildKey) {
 
