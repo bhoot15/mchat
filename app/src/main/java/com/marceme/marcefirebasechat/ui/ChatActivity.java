@@ -141,6 +141,7 @@ public class ChatActivity extends Activity {
 
             ChatMessage newMessage = new ChatMessage(senderMessage, mCurrentUserId, mRecipientId,createdAt);
             messageChatDatabase.push().setValue(newMessage);
+            FirebaseDatabase.getInstance().getReference().child("users").child(mRecipientId).child("lastMessageTime").setValue(new Date().getTime());
 
             mUserMessageChatText.setText("");
         }

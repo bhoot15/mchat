@@ -82,13 +82,17 @@ public class ChatMainActivity extends Activity {
     }
 
     private void setUsersDatabase() {
+//        mUserRefDatabase = FirebaseDatabase.getInstance().getReference().child("users");
         mUserRefDatabase = FirebaseDatabase.getInstance().getReference().child("users");
     }
 
     private void setUserRecyclerView() {
 
         mChatUsersChatAdapter = new ChatUsersChatAdapter(this, new ArrayList<User>());
-        mUsersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
+        mUsersRecyclerView.setLayoutManager(mLayoutManager);
         mUsersRecyclerView.setHasFixedSize(true);
         mUsersRecyclerView.setAdapter(mChatUsersChatAdapter);
     }
@@ -124,7 +128,7 @@ public class ChatMainActivity extends Activity {
 
     private void queryAllUsers() {
         mChildEventListener = getChildEventListener();
-        mUserRefDatabase.limitToFirst(50).addChildEventListener(mChildEventListener);
+        mUserRefDatabase.orderByChild("lastMessageTime").addChildEventListener(mChildEventListener);
     }
 
     private void goToLogin() {
