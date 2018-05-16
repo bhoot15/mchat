@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.marceme.marcefirebasechat.FireChatHelper.ChatHelper;
 import com.marceme.marcefirebasechat.FireChatHelper.ExtraIntent;
@@ -42,7 +43,7 @@ public class ChatUsersChatAdapter extends RecyclerView.Adapter<ChatUsersChatAdap
 
     @Override
     public ViewHolderUsers onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolderUsers(mContext,LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_user_profile, parent, false));
+        return new ViewHolderUsers(mContext, LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_user_profile, parent, false));
     }
 
     @Override
@@ -51,8 +52,8 @@ public class ChatUsersChatAdapter extends RecyclerView.Adapter<ChatUsersChatAdap
         User fireChatUser = mUsers.get(position);
 
         // Set avatar
-        int userAvatarId= ChatHelper.getDrawableAvatarId(fireChatUser.getAvatarId());
-        Drawable  avatarDrawable = ContextCompat.getDrawable(mContext,userAvatarId);
+        int userAvatarId = ChatHelper.getDrawableAvatarId(fireChatUser.getAvatarId());
+        Drawable avatarDrawable = ContextCompat.getDrawable(mContext, userAvatarId);
         holder.getUserAvatar().setImageDrawable(avatarDrawable);
 
         // Set display name
@@ -62,10 +63,10 @@ public class ChatUsersChatAdapter extends RecyclerView.Adapter<ChatUsersChatAdap
         holder.getStatusConnection().setText(fireChatUser.getConnection());
 
         // Set presence text color
-        if(fireChatUser.getConnection().equals(ONLINE)) {
+        if (fireChatUser.getConnection().equals(ONLINE)) {
             // Green color
             holder.getStatusConnection().setTextColor(Color.parseColor("#00FF00"));
-        }else {
+        } else {
             // Red color
             holder.getStatusConnection().setTextColor(Color.parseColor("#FF0000"));
         }
@@ -83,7 +84,7 @@ public class ChatUsersChatAdapter extends RecyclerView.Adapter<ChatUsersChatAdap
     }
 
     public void changeUser(int index, User user) {
-        mUsers.set(index,user);
+        mUsers.set(index, user);
         notifyDataSetChanged();
     }
 
@@ -100,7 +101,7 @@ public class ChatUsersChatAdapter extends RecyclerView.Adapter<ChatUsersChatAdap
 
 
     /* ViewHolder for RecyclerView */
-    public class ViewHolderUsers extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ViewHolderUsers extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private ImageView mUserAvatar;
         private TextView mUserDisplayName;
@@ -109,9 +110,9 @@ public class ChatUsersChatAdapter extends RecyclerView.Adapter<ChatUsersChatAdap
 
         public ViewHolderUsers(Context context, View itemView) {
             super(itemView);
-            mUserAvatar = (ImageView)itemView.findViewById(R.id.img_avatar);
-            mUserDisplayName = (TextView)itemView.findViewById(R.id.text_view_display_name);
-            mStatusConnection = (TextView)itemView.findViewById(R.id.text_view_connection_status);
+            mUserAvatar = (ImageView) itemView.findViewById(R.id.img_avatar);
+            mUserDisplayName = (TextView) itemView.findViewById(R.id.text_view_display_name);
+            mStatusConnection = (TextView) itemView.findViewById(R.id.text_view_connection_status);
             mContextViewHolder = context;
 
             itemView.setOnClickListener(this);
@@ -124,6 +125,7 @@ public class ChatUsersChatAdapter extends RecyclerView.Adapter<ChatUsersChatAdap
         public TextView getUserDisplayName() {
             return mUserDisplayName;
         }
+
         public TextView getStatusConnection() {
             return mStatusConnection;
         }
@@ -132,17 +134,21 @@ public class ChatUsersChatAdapter extends RecyclerView.Adapter<ChatUsersChatAdap
         @Override
         public void onClick(View view) {
 
-            User user = mUsers.get(getLayoutPosition());
+            try {
+                User user = mUsers.get(getLayoutPosition());
 
-            String chatRef = user.createUniqueChatRef(mCurrentUserCreatedAt,mCurrentUserEmail);
+                String chatRef = user.createUniqueChatRef(mCurrentUserCreatedAt, mCurrentUserEmail);
 
-            Intent chatIntent = new Intent(mContextViewHolder, ChatActivity.class);
-            chatIntent.putExtra(ExtraIntent.EXTRA_CURRENT_USER_ID, mCurrentUserId);
-            chatIntent.putExtra(ExtraIntent.EXTRA_RECIPIENT_ID, user.getRecipientId());
-            chatIntent.putExtra(ExtraIntent.EXTRA_CHAT_REF, chatRef);
+                Intent chatIntent = new Intent(mContextViewHolder, ChatActivity.class);
+                chatIntent.putExtra(ExtraIntent.EXTRA_CURRENT_USER_ID, mCurrentUserId);
+                chatIntent.putExtra(ExtraIntent.EXTRA_RECIPIENT_ID, user.getRecipientId());
+                chatIntent.putExtra(ExtraIntent.EXTRA_CHAT_REF, chatRef);
 
-            // Start new activity
-            mContextViewHolder.startActivity(chatIntent);
+                // Start new activity
+                mContextViewHolder.startActivity(chatIntent);
+            } catch (Exception e){
+                Toast.makeText(mContextViewHolder, "something went wrong", Toast.LENGTH_SHORT).show();
+            }
 
         }
     }

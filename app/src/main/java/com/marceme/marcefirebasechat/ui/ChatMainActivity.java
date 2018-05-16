@@ -71,6 +71,7 @@ public class ChatMainActivity extends Activity {
         setUserRecyclerView();
         setUsersKeyList();
         setAuthListener();
+        setUserOnline();
     }
 
     private void bindButterKnife() {
@@ -150,6 +151,7 @@ public class ChatMainActivity extends Activity {
         super.onStop();
 
         clearCurrentUsers();
+        setUserOffline();
 
         if (mChildEventListener != null) {
             mUserRefDatabase.removeEventListener(mChildEventListener);
@@ -159,6 +161,18 @@ public class ChatMainActivity extends Activity {
             mAuth.removeAuthStateListener(mAuthListener);
         }
 
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        setUserOffline();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setUserOnline();
     }
 
     private void clearCurrentUsers() {
@@ -176,6 +190,13 @@ public class ChatMainActivity extends Activity {
         if (mAuth.getCurrentUser() != null) {
             String userId = mAuth.getCurrentUser().getUid();
             mUserRefDatabase.child(userId).child("connection").setValue(ChatUsersChatAdapter.OFFLINE);
+        }
+    }
+
+    private void setUserOnline() {
+        if (mAuth.getCurrentUser() != null) {
+            String userId = mAuth.getCurrentUser().getUid();
+            mUserRefDatabase.child(userId).child("connection").setValue(ChatUsersChatAdapter.ONLINE);
         }
     }
 
@@ -210,7 +231,7 @@ public class ChatMainActivity extends Activity {
             ProgressBar progressBar = (ProgressBar) findViewById(R.id.spin_kit);
             progressBar.setVisibility(View.GONE);
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.e("ex ", String.valueOf(e));
             /*Snackbar snackbar = Snackbar
                     .make(mUsersRecyclerView, "No Internet Connection", Snackbar.LENGTH_SHORT);
