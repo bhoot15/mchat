@@ -91,7 +91,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginLeft="@dimen/log_in_margin"
         android:layout_marginRight="@dimen/log_in_margin"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
     </LinearLayout>
 
 </RelativeLayout>
