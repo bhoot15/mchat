@@ -265,7 +265,7 @@ public class ChatMainActivity extends Activity {
 
                     if (dataSnapshot.getKey().equals(mCurrentUserUid)) {
                         User currentUser = dataSnapshot.getValue(User.class);
-                        mChatUsersChatAdapter.setCurrentUserInfo(userUid, currentUser.getEmail(), currentUser.getCreatedAt(), currentUser.getUserType());
+                        mChatUsersChatAdapter.setCurrentUserInfo(userUid, currentUser.getEmail(), currentUser.getCreatedAt(), currentUser.getUserType(), currentUser.getImg_url());
                     } else {
                         User user = dataSnapshot.getValue(User.class);
                         System.out.println("UserType-->: " + user.getUserType());

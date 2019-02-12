@@ -27,18 +27,22 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ChatRegisterActivity extends Activity{
+public class ChatRegisterActivity extends Activity {
 
     private static final String TAG = ChatRegisterActivity.class.getSimpleName();
 
-    @BindView(R.id.edit_text_display_name) EditText mUserFirstNameRegister;
-    @BindView(R.id.edit_text_email_register) EditText mUserEmailRegister;
-    @BindView(R.id.edit_text_password_register) EditText mUserPassWordRegister;
-    String mUserType = "user";
+    @BindView(R.id.edit_text_display_name)
+    EditText mUserFirstNameRegister;
+    @BindView(R.id.edit_text_email_register)
+    EditText mUserEmailRegister;
+    @BindView(R.id.edit_text_password_register)
+    EditText mUserPassWordRegister;
+    String mUserType = "rj";
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private AlertDialog dialog;
+    String mUserImage = "https://android.radiofoorti.fm/albumart/uploads/ic_avatar_blue.png";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,11 +82,11 @@ public class ChatRegisterActivity extends Activity{
     }
 
     private void onRegisterUser() {
-        if(getUserDisplayName().equals("") || getUserEmail().equals("") || getUserPassword().equals("")){
+        if (getUserDisplayName().equals("") || getUserEmail().equals("") || getUserPassword().equals("")) {
             showFieldsAreRequired();
-        }else if(isIncorrectEmail(getUserEmail()) || isIncorrectPassword(getUserPassword())) {
+        } else if (isIncorrectEmail(getUserEmail()) || isIncorrectPassword(getUserPassword())) {
             showIncorrectEmailPassword();
-        }else {
+        } else {
             signUp(getUserEmail(), getUserPassword());
         }
     }
@@ -103,9 +107,9 @@ public class ChatRegisterActivity extends Activity{
         showAlertDialog(getString(R.string.error_fields_empty), true);
     }
 
-    private void showAlertDialog(String message, boolean isCancelable){
+    private void showAlertDialog(String message, boolean isCancelable) {
 
-        dialog = ChatHelper.buildAlertDialog(getString(R.string.login_error_title),message,isCancelable,ChatRegisterActivity.this);
+        dialog = ChatHelper.buildAlertDialog(getString(R.string.login_error_title), message, isCancelable, ChatRegisterActivity.this);
         dialog.show();
     }
 
@@ -115,6 +119,10 @@ public class ChatRegisterActivity extends Activity{
 
     public String getUserType() {
         return mUserType;
+    }
+
+    public String getUserImg() {
+        return mUserImage;
     }
 
     private String getUserEmail() {
@@ -128,16 +136,16 @@ public class ChatRegisterActivity extends Activity{
 
     private void signUp(String email, String password) {
 
-        showAlertDialog("Registering...",true);
+        showAlertDialog("Registering...", true);
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 dismissAlertDialog();
 
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     onAuthSuccess(task.getResult().getUser());
-                }else {
+                } else {
                     showAlertDialog(task.getException().getMessage(), true);
                 }
             }
@@ -160,9 +168,9 @@ public class ChatRegisterActivity extends Activity{
         startActivity(intent);
     }
 
-    private void createNewUser(String userId){
+    private void createNewUser(String userId) {
         User user = buildNewUser();
-        mDatabase.child("users").child(userId).setValue(user);
+        mDatabase.child("rjs").child(userId).setValue(user);
     }
 
     private User buildNewUser() {
@@ -172,7 +180,8 @@ public class ChatRegisterActivity extends Activity{
                 ChatUsersChatAdapter.ONLINE,
                 ChatHelper.generateRandomAvatarForUser(),
                 new Date().getTime(),
-                getUserType()
-                );
+                getUserType(),
+                getUserImg()
+        );
     }
 }

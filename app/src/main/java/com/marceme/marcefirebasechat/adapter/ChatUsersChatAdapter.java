@@ -32,6 +32,7 @@ public class ChatUsersChatAdapter extends RecyclerView.Adapter<ChatUsersChatAdap
     private Context mContext;
     private String mCurrentUserEmail;
     private String mCurrentUserType;
+    private String img_url;
     private Long mCurrentUserCreatedAt;
     private String mCurrentUserId;
 
@@ -88,11 +89,12 @@ public class ChatUsersChatAdapter extends RecyclerView.Adapter<ChatUsersChatAdap
         notifyDataSetChanged();
     }
 
-    public void setCurrentUserInfo(String userUid, String email, long createdAt, String userType) {
+    public void setCurrentUserInfo(String userUid, String email, long createdAt, String userType, String imgUrl) {
         mCurrentUserId = userUid;
         mCurrentUserEmail = email;
         mCurrentUserCreatedAt = createdAt;
         mCurrentUserType = userType;
+        img_url = imgUrl;
     }
 
     public void clear() {
@@ -146,7 +148,7 @@ public class ChatUsersChatAdapter extends RecyclerView.Adapter<ChatUsersChatAdap
 
                 // Start new activity
                 mContextViewHolder.startActivity(chatIntent);
-            } catch (Exception e){
+            } catch (Exception e) {
                 Toast.makeText(mContextViewHolder, "something went wrong", Toast.LENGTH_SHORT).show();
             }
 
